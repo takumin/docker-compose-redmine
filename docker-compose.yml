@@ -8,10 +8,12 @@ services:
     ports:
       - 3306:3306
     environment:
+      - TZ=Asia/Tokyo
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
       - MYSQL_DATABASE=redmine
       - MYSQL_USER=redmine
       - MYSQL_PASSWORD=redmine
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_bin
   memcached:
     image: memcached:alpine
     restart: always
@@ -20,7 +22,7 @@ services:
     ports:
       - 11211:11211
   redmine:
-    image: sameersbn/redmine
+    image: redmine:passenger
     restart: always
     depends_on:
       - mysql
@@ -28,17 +30,18 @@ services:
     networks:
       - redmine
     ports:
-      - 8088:80
+      - 8088:3000
     environment:
       - TZ=Asia/Tokyo
-      - DB_ADAPTER=mysql2
-      - DB_HOST=mysql
-      - DB_PORT=3306
-      - DB_USER=redmine
-      - DB_PASS=redmine
-      - DB_NAME=redmine
-      - MEMCACHE_HOST=memcached
-      - MEMCACHE_PORT=11211
-      - NGINX_WORKERS=1024
+      - REDMINE_DB_MYSQL=mysql
+      - REDMINE_DB_DATABASE=redmine
+      - REDMINE_DB_USERNAME=redmine
+      - REDMINE_DB_PASSWORD=redmine
+      - REDMINE_DB_ENCODING=utf8mb4
+    # volumes:
+    #   - ./files:/usr/src/redmine/files
+    #   - ./log:/usr/src/redmine/log
+    #   - ./plugins:/usr/src/redmine/plugins
+    #   - ./themes:/usr/src/redmine/public/themes
 networks:
   redmine:
