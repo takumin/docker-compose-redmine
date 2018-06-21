@@ -38,10 +38,10 @@ services:
       - REDMINE_DB_USERNAME=redmine
       - REDMINE_DB_PASSWORD=redmine
       - REDMINE_DB_ENCODING=utf8mb4
-    # volumes:
-    #   - ./files:/usr/src/redmine/files
-    #   - ./log:/usr/src/redmine/log
-    #   - ./plugins:/usr/src/redmine/plugins
-    #   - ./themes:/usr/src/redmine/public/themes
+    volumes:
+      - ./files:/usr/src/redmine/files
+      - ./log:/usr/src/redmine/log
+      - ./plugins:/usr/src/redmine/plugins
+      - ./themes:/usr/src/redmine/public/themes
 networks:
   redmine:
