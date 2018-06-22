@@ -2,8 +2,7 @@
 up:
 	@docker-compose up -d
 # Wait
-	@echo Waiting...
-	@sleep 30
+	@while true; do echo Waiting... && curl -s -o /dev/null http://localhost:8088 && break || sleep 3; done
 # Default
 	@docker exec redmine env RAILS_ENV=production REDMINE_LANG=ja bundle exec rake redmine:load_default_data
 # Memcached
