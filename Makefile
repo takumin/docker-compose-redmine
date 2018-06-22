@@ -58,6 +58,9 @@ up:
 	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO settings (name, value) VALUES ('repositories_encodings','utf-8,cp932,euc-jp');"
 	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO settings (name, value) VALUES ('enabled_scm','---\n- Git\n');"
 	@docker exec redmine passenger-config restart-app /usr/src/redmine
+# Plugin Install
+	@docker exec redmine bundle exec rake redmine:plugins:migrate RAILS_ENV=production
+	@docker exec redmine passenger-config restart-app /usr/src/redmine
 
 .PHONY: down
 down:
@@ -67,6 +70,7 @@ down:
 clean: down
 	@sudo rm -fr ./files
 	@sudo rm -fr ./log
+
+.PHONY: distclean
+distclean: clean
 	@sudo rm -fr ./mysql
-	@sudo rm -fr ./plugins
-	@sudo rm -fr ./themes
