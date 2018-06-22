@@ -13,6 +13,7 @@ up:
 # Configuration
 	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("search_results_per_page","30");'
 	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("text_formatting","markdown");'
+	@docker exec redmine passenger-config restart-app /usr/src/redmine
 
 .PHONY: down
 down:
