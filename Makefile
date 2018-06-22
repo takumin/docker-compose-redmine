@@ -32,22 +32,31 @@ up:
 	@docker exec redmine $(PROXY) bundle install
 	@docker exec redmine passenger-config restart-app /usr/src/redmine
 # Redmine Configuration
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("search_results_per_page","30");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("text_formatting","markdown");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("default_language","ja");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("force_default_language_for_anonymous","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("force_default_language_for_loggedin","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("user_format","lastname_firstname");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("thumbnails_enabled","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("login_required","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("autologin","30");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("max_additional_emails","0");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("session_lifetime","0");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("session_timeout","0");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("default_users_time_zone","Tokyo");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("rest_api_enabled","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("jsonp_enabled","1");'
-	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e 'INSERT INTO `settings` (`name`, `value`) VALUES ("default_projects_public","0");'
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('search_results_per_page","30');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('text_formatting","markdown');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_language","ja');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('force_default_language_for_anonymous","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('force_default_language_for_loggedin","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('user_format","lastname_firstname');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('thumbnails_enabled","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('login_required","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('autologin","30');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('max_additional_emails","0');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('session_lifetime","43200');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('session_timeout","480');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_users_time_zone","Tokyo');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('rest_api_enabled","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('jsonp_enabled","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_projects_public","0');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_projects_modules","---\n- issue_tracking\n- time_tracking\n- wiki\n- repository\n- calendar\n- gantt\n');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_projects_tracker_ids','---\n- \'1\'\n- \'2\'\n- \'3\'\n');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('cross_project_issue_relations","1');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('default_issue_start_date_to_creation_date","0');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('issue_done_ratio","issue_status');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('issue_list_default_totals","---\n- estimated_hours\n- spent_hours\n');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('attachment_max_size","51200');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('repositories_encodings","utf-8,cp932,euc-jp');"
+	@docker exec redmine_mysql mysql -B -uredmine -predmine redmine -e "INSERT INTO 'settings' ('name', 'value') VALUES ('enabled_scm","---\n- Git\n');"
 	@docker exec redmine passenger-config restart-app /usr/src/redmine
 
 .PHONY: down
