@@ -6,8 +6,6 @@ services:
     restart: always
     networks:
       - redmine
-    ports:
-      - 3306:3306
     environment:
       - TZ=Asia/Tokyo
       - MYSQL_RANDOM_ROOT_PASSWORD=yes
@@ -23,8 +21,6 @@ services:
     restart: always
     networks:
       - redmine
-    ports:
-      - 11211:11211
   redmine:
     image: redmine:passenger
     container_name: redmine
@@ -39,10 +35,15 @@ services:
     environment:
       - TZ=Asia/Tokyo
       - REDMINE_DB_MYSQL=mysql
+      - REDMINE_DB_PORT=3306
       - REDMINE_DB_DATABASE=redmine
       - REDMINE_DB_USERNAME=redmine
       - REDMINE_DB_PASSWORD=redmine
       - REDMINE_DB_ENCODING=utf8mb4
+      - NO_PROXY=${NO_PROXY}
+      - FTP_PROXY=${FTP_PROXY}
+      - HTTP_PROXY=${HTTP_PROXY}
+      - HTTPS_PROXY=${HTTPS_PROXY}
     volumes:
       - ./files:/usr/src/redmine/files
       - ./log:/usr/src/redmine/log
